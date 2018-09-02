@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>我的待办事项</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        body {
+            background-color: #fafafa;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="vip">
+            <header class="header clear">
+                <i class="iconfont fl" tapmode onclick="closeWins('commission')">&#xe613;</i> 我的待办事项
+            </header>
+        </div>
+        <div class="commission">
+            <ul class="commission-ul">
+                <li class="clear">
+                    <span>待办事项1</span>
+                    <button class="fr" tapmode onclick="openWins('problemgrade')">批改</button>
+                </li>
+                <li class="clear">
+                    <span>待办事项1</span>
+                    <button class="fr" tapmode onclick="openWins('problemgrade')">批改</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--导航-->
+    <div class="nav">
+        <ul class="nav-ul">
+            <li tapmode onclick="openWins('subject', './subject.html')">
+                <i class="iconfont icon-jiuzhenqia"></i>
+            </li>
+            <li tapmode onclick="openWins('report', './report.html')">
+                <i class="iconfont icon-baogao"></i>
+            </li>
+            <li class="photo" tapmode onclick="openCameras('./photodetails.html')">
+                <div class="photo-box">
+                    <i class="iconfont icon-camera-b"></i>
+                </div>
+            </li>
+            <li class="active" tapmode>
+                <i class="iconfont icon-iconset0116"></i>
+            </li>
+            <li tapmode onclick="openWins('index', '../index.html')">
+                <i class="iconfont icon-usercircle"></i>
+            </li>
+        </ul>
+    </div <script type="text/javascript" src="../script/api.js"></script>
+    <script type="text/javascript" src="../script/resize.js"></script>
+</body>
+
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/resize.js"></script>
+<script type="text/javascript" src="../script/router.js"></script>
+<script>
+    apiready = function() {}
+</script>
+
+</html>

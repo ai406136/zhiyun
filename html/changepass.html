@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>修改密码</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="height: 100%">
+        <div class="forgetpass">
+            <header class="header clear">
+                <i class="iconfont fl icon-houtui" tapmode onclick="closeWins('changepass')"></i>
+            </header>
+        </div>
+        <div class="forgetpass-content">
+          <div class="forgetpass-content-box">
+              <p class="fotgetpass-box-head clear">手机号</p>
+              <input id="changeid" type="number" placeholder="请输入您的手机号" class="fotgetpass-inputsyzm" />
+              <input type="button" value="获取您的验证码" id="getyzm" class="button-yzm fr"/>
+          </div>
+            <div class="forgetpass-content-box">
+                <p class="fotgetpass-box-head">验证码</p>
+                <p class="phone-p" id='phone1'></p>
+                <input id="changeyzm" type="text" placeholder="请输入验证码" class="fotgetpass-inputs" />
+            </div>
+
+            <div class="forgetpass-content-box">
+                <p class="fotgetpass-box-head">新密码</p>
+                <input id="changepass" type="password" placeholder="请设置登录密码,不少于6位" class="fotgetpass-inputs" />
+            </div>
+            <div class="forgetpass-content-box">
+                <p class="fotgetpass-box-head">确认密码</p>
+                <input id="changepass2" type="password" placeholder="请重新输入密码" class="fotgetpass-inputs" />
+            </div>
+        </div>
+    </div>
+    <div class="forgetpass-base">
+        <div id="submitpass" class="fotgetpass-but" tapmode>修改密码</div>
+    <div>
+</body>
+
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/router.js"></script>
+<script type="text/javascript" src="../script/resize.js"></script>
+<script type="text/javascript" src="../script/http.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+      var changeid = document.querySelector("#changeid")
+      var changeyzm = document.querySelector("#changeyzm")
+      var changepass = document.querySelector("#changepass")
+      var changepass2 = document.querySelector("#changepass2")
+      var submitpass = document.querySelector("#submitpass")
+      var getyzm = document.querySelector("#getyzm")
+      var phone1 = document.querySelector("#phone1")
+
+      getyzm.addEventListener('click',function(){
+        var val = changeid.value;
+        var time = 3;
+        var timer =null;
+        const reg = /^1[3|4|5|6|7|8|9][0-9]\d{8}$/
+
+        if (!val || !reg.test(val)) {
+            alert('请输入正确的手机号码')
+            return
+        }
+        var params = {
+          phone : val
+        }
+        postAjax(params, '/common/sendcode', function (data) {
+          var routerParams = {
+            phone: val,
+            verifCode: data.data.code
+          }
+          timer = setInterval(function(){
+
+            getyzm.disabled = true;
+            getyzm.value ="重新发送" + time +"秒";
+            time--;
+            if(time == -1){
+              getyzm.value = "重新发送验证码";
+              getyzm.disabled = false;
+              clearInterval(timer)
+            }
+          },1000)
+          phone1.innerHTML = '已发送' + val
+         // localStorage.setItem("yzm", JSON.stringify(routerParams))
+        })
+
+      })
+
+      submitpass.addEventListener('click',function(){
+        var changepassval = changepass.value;
+        var changepass2val = changepass2.value;
+
+        if (!changepassval || changepassval.length < 6){
+          alert("请输入正确的密码")
+          return
+        }
+
+        if (changepass2val != changepassval || changepassval.length < 6){
+          alert("两次输入的密码不相同")
+          return
+        }
+        // val 是什么
+        var params = {
+          phone : changeid.value,
+          code : changeyzm.value,
+          password : changepassval,
+          password_confirmation : changepass2val
+        }
+
+        postAjax(params,'/user/resetpw',function (data){
+          alert('修改密码成功')
+          localStorage.setItem('token', data.token)
+           window.openWins('index','../index.html')
+        })
+      })
+    }
+</script>
+
+</html>

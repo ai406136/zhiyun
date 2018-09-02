@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>绑定成功</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+
+</head>
+
+<body>
+    <div>
+        <div class="vip">
+            <header class="header clear">
+                <i class="iconfont fl icon-houtui" tapmode onclick="closeWins('binding')"></i>绑定子账号
+            </header>
+            <div class="vip-head">
+                <i class="binding-head-i iconfont">&#xe6dd;</i>
+            </div>
+            <p class="binding-p">恭喜您账号生成</p>
+            <div class="binding-box">
+              <p class="binding-box-p">账号：<span>11111111</span></p>
+              <p class="binding-box-p">密码：<i>账号与原密码相同</i></p>
+            </div>
+            <div class="vip-money">
+                <buttom class="binging-but" tapmode onclick="openWins('signin', './signin.html')">用绑定账号去登陆</buttom>
+                <buttom class="binging-but" tapmode onclick="closeWins('binding')">解绑当前子账号</buttom>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../script/api.js"></script>
+    <script type="text/javascript" src="../script/resize.js"></script>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/resize.js"></script>
+<script type="text/javascript" src="../script/router.js"></script>
+<script>
+apiready = function () {
+}
+</script>
+</html>

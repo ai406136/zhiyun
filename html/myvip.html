@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>我的会员</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+
+</head>
+
+<body>
+    <div>
+        <div class="vip">
+            <header class="header clear">
+                <i class="iconfont fl icon-houtui" tapmode onclick="closeWins('myvip')"></i>我的会员
+            </header>
+            <div class="vip-head">
+                <span class="vip-head-span">0</span><span class="vip-head-span1">天</span>
+            </div>
+            <div class="vip-box">
+                <p class="vip-box-p">选择购买会员时间</p>
+                <span class="active">30天</span>
+                <span>120天</span>
+                <span style="margin-right:0">360天</span>
+            </div>
+            <div class="vip-money">
+                <p class="vip-box-p">选择购买会员时间</p>
+                <buttom class="zfb" tapmode onclick="closeWins('myvip')">支付宝支付</buttom>
+                <buttom class="wechat" tapmode onclick="closeWins('myvip')">微信支付</buttom>
+            </div>
+            <p class="p-base">使用授权码</p>
+            <div class="base">
+                <i class="iconfont icon-zhuyi"></i>
+                <div class="vip-base-box">非会员只可导入管理50道错题,且不可查看下载类似习题,会员则无数量限制下载查看类似习题</div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/resize.js"></script>
+<script type="text/javascript" src="../script/router.js"></script>
+<script type="text/javascript">
+apiready = function () {
+}
+</script>
+</html>

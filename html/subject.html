@@ -1,0 +1,176 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>习题批改</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        body {
+            background-color: #fafafa;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="subject">
+        <div class="subject-head header-all">
+            <i class="iconfont icon-search"></i>
+            <input class="subject-head-input" placeholder="根据错题编号搜题" type="text" />
+        </div>
+        <div class="swiper-container">
+            <div class="swiper-wrapper" id='lunbo'>
+                <div class="swiper-slide"><img height="3rem" src="../image/timg.png" /></div>
+                <div class="swiper-slide"><img height="3rem" src="../image/timg.png" /></div>
+                <div class="swiper-slide"><img height="3rem" src="../image/img.png" /></div>
+            </div>
+            <!-- 分页器 -->
+            <div class="swiper-pagination"></div>
+        </div>
+        <ul class="subject-ul" id="subcontent">
+            <li tapmode>
+                <i class="iconfont icon-book_icon"></i>
+                <p class="subject-li-p">语文(2)</p>
+            </li>
+            <li tapmode>
+                <i class="iconfont icon-shuzixuanzeqi"></i>
+                <p class="subject-li-p">数学 (2)</p>
+            </li>
+            <li tapmode>
+                <i class="iconfont icon-yingyu"></i>
+                <p class="subject-li-p">英语(2)</p>
+            </li>
+            <li tapmode>
+                <i class="iconfont icon-physics-world"></i>
+                <p class="subject-li-p">物理(2)</p>
+            </li>
+            <li tapmode>
+                <i class="iconfont icon-jingxihuaxuepin"></i>
+                <p class="subject-li-p">化学(2)</p>
+            </li>
+            <li tapmode>
+                <i class="iconfont icon-xianweijing"></i>
+                <p class="subject-li-p">生物(2)</p>
+            </li>
+            <li tapmode>
+                <i class="iconfont icon-qizi"></i>
+                <p class="subject-li-p">政治(2)</p>
+            </li>
+            <li tapmode>
+                <i class="iconfont icon-lishi"></i>
+                <p class="subject-li-p">历史(2)</p>
+            </li>
+            <li tapmode>
+                <i class="iconfont icon-kongjiandili"></i>
+                <p class="subject-li-p">地理(2)</p>
+            </li>
+        </ul>
+        <p tapmode onclick="openWins('opinion', './opinion.html')" class="subject-base-p">意见反馈<i class="iconfont icon-gangbi"></i></p>
+    </div>
+    <!--导航-->
+    <div class="nav">
+        <ul class="nav-ul">
+            <li class="active">
+                <i class="iconfont icon-jiuzhenqia"></i>
+            </li>
+            <li tapmode onclick="openWins('report', './report.html')">
+                <i class="iconfont icon-baogao"></i>
+            </li>
+            <li class="photo" tapmode onclick="openCameras('./photodetails.html')">
+                <div class="photo-box">
+                    <i class="iconfont icon-camera-b"></i>
+                </div>
+            </li>
+            <li tapmode onclick="openWins('commission', './commission.html')">
+                <i class="iconfont icon-iconset0116"></i>
+            </li>
+            <li tapmode onclick="openWins('index', '../index.html')">
+                <i class="iconfont icon-usercircle"></i>
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript" src="../script/api.js"></script>
+    <script type="text/javascript" src="../script/resize.js"></script>
+    <script type="text/javascript" src="../script/router.js"></script>
+    <script type="text/javascript" src="../script/http.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/css/swiper.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/js/swiper.min.js"></script>
+</body>
+<script>
+    apiready = function() {
+        var subcontent = document.querySelector('#subcontent')
+        var lunbo = document.querySelector('#lunbo')
+        window.$names = 'subject'
+        postAjax({}, '/index/banner', function(data) {
+            var banner = data.banner
+            var len = banner.length
+            var htmls = ''
+            if (len && typeof banner === 'object') {
+                /*banner.forEach(v => {
+                    htmls += '<div class="swiper-slide"><img height="3rem" src="' + v.url + '"</img></div>'
+                 })*/
+                for (var i = 0; i < len; i++) {
+                    htmls += '<div class="swiper-slide"><img height="3rem" src="' + banner[i].url + '"</img></div>'
+                }
+                lunbo.innerHTML = htmls
+
+                var swiper = new Swiper('.swiper-container', {
+                    slidesPerView: 1,
+                    spaceBetween: 30,
+                    loop: true,
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                });
+            }
+        })
+        tokenAjax({}, '/index/getCountList', function(data) {
+            var icon = {
+                '语文': 'icon-book_icon',
+                '数学': 'icon-shuzixuanzeqi',
+                '英语': 'icon-yingyu',
+                '物理': 'icon-physics-world',
+                '化学': 'icon-jingxihuaxuepin',
+                '生物': 'icon-xianweijing',
+                '政治': 'icon-qizi',
+                '历史': 'icon-lishi',
+                '地理': 'icon-kongjiandili'
+            }
+            var html = ''
+            if (data && typeof data == 'object') {
+                data.forEach(function(v) {
+                    html += '<li tapmode class="lis" id="' + v.id + '"><i class="iconfont ' + icon[v.tag_name] + '"></i><p class="subject-li-p">' + v.tag_name + '(' + v.num + ')</p></li>'
+                    subcontent.innerHTML = html
+                })
+                var lis = document.querySelectorAll('.lis')
+                lis.forEach(function(v){
+                  v.addEventListener('click', function() {
+                    var params = {
+                        id: v.getAttribute('id')
+                    }
+                    openWins('reportdeta', null, params)
+                  })
+                })
+            }
+        })
+        // subcontent.addEventListener('click', function(e) {
+        //     var ev = e || Event
+        //     console.log(ev.target.nodeName)
+        //     if (ev.target.nodeName === "LI") {
+        //         var params = {
+        //             id: e.target.id
+        //         }
+        //         openWins('reportdeta', null, params)
+        //     }
+        // })
+    }
+</script>
+
+</html>

@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>我的</title>
+    <link rel="stylesheet" type="text/css" href="./css/api.css" />
+
+</head>
+
+<body>
+    <div class="user">
+        <div class="user-haed">
+            <img src="./image/touxiang2.png" />
+            <span class="user-head-text">李青云,您好</span>
+        </div>
+        <ul class="user-ul clear">
+            <li id="vip" tapmode onclick="openWins('myvip')">
+                <span>我的会员</span>
+                <i class="iconfont fr icon-jiantou"></i>
+            </li>
+            <li tapmode onclick="openWins('modifyinfor')">
+                <span>个人信息</span>
+                <i class="iconfont fr icon-jiantou"></i>
+            </li>
+            <li tapmode onclick="openWins('changepass')">
+                <span>修改密码</span>
+                <i class="iconfont fr icon-jiantou"></i>
+            </li>
+            <li tapmode onclick="openWins('opinion')">
+                <span>意见反馈</span>
+                <i class="iconfont fr icon-jiantou"></i>
+            </li>
+            <li class="base-li" tapmode onclick="openWins('login')">退出登陆</li>
+        </ul>
+    </div>
+    <div class="user-base clear">
+        <button class="user-base-botton fr" tapmode onclick="openWins('family')">立即开通</button>
+        <div class="user-base-box1 fr">
+            <span class="user-base-span">亲情账号</span>
+            <span class="user-base-span1">免费为子女开通亲情账号</span>
+        </div>
+
+    </div>
+    <!--导航-->
+    <div class="nav">
+        <ul class="nav-ul">
+            <li tapmode onclick="openWins('subject')">
+                <i class="iconfont icon-jiuzhenqia"></i>
+            </li>
+            <li tapmode onclick="openWins('report')">
+                <i class="iconfont icon-baogao"></i>
+            </li>
+            <li class="photo" tapmode onclick="openCameras('./html/photodetails.html')">
+                <div class="photo-box">
+                    <i class="iconfont icon-camera-b"></i>
+                </div>
+            </li>
+            <li tapmode onclick="openWins('commission')">
+                <i class="iconfont icon-iconset0116"></i>
+            </li>
+            <li class="active" tapmode onclick="openWins('index')">
+                <i class="iconfont icon-usercircle"></i>
+            </li>
+        </ul>
+    </div>
+
+    <script type="text/javascript" src="./script/api.js"></script>
+    <script type="text/javascript" src="./script/resize.js"></script>
+    <script type="text/javascript" src="./script/router.js"></script>
+    <script src="./script/jquery.js" type="text/javascript"></script>
+    <script>
+        // window.$router = router
+        apiready = function() {
+          var token = localStorage.getItem('token')
+          if (!token) {
+            openWins('login')
+          }
+            // api.openFrame({
+            //     name: 'nav',
+            //     url: './html/nav.html',
+            //     rect: {
+            //         x: 0,
+            //         y: 30,
+            //         w: 'auto',
+            //         h: 60
+            //     },
+            //     pageParam: {
+            //         name: 'nav'
+            //     }
+            // });
+        }
+    </script>
+</body>
+
+</html>

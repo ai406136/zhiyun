@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>报告详情</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="forgetpass">
+            <header class="header clear">
+                <i class="iconfont fl icon-houtui" tapmode onclick="closeWins('reportdeta')"></i>报告详情
+            </header>
+        </div>
+        <div class="reportdeta-content">
+            <p class="reportdeta-head" id="errorLen"></p>
+            <ul id="errData">
+            </ul>
+            <!-- <div class="reportdeta-head-box">
+                <div class="reportdeta-box">
+                    <span class="active">语文-字词</span>
+                    <span class="">不懂</span>
+                    <span class="active1">错1对0</span>
+                    <span class="">默认错题集</span>
+                </div>
+                <div class="reportdeta-box-img">
+                    <img src="../image/img.png" />
+                </div>
+            </div> -->
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/resize.js"></script>
+<script type="text/javascript" src="../script/router.js"></script>
+<script type="text/javascript" src="../script/http.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+        var errData = document.querySelector('#errData')
+        var errorLen = document.querySelector('#errorLen')
+        var routerParams = api.pageParam
+        if (routerParams.params.id) {
+            var params = {
+                tag_id1: routerParams.params.id
+            }
+            tokenAjax(params, '/index/getListByKemu', function(data) {
+                var html = ''
+                if (data && typeof data == 'object') {
+                    data.forEach(function(v) {
+                        html += '<li class="reportdeta-head-box"><ul class="reportdeta-box"><li class="active">' + v.tag_id1_name + '</li>'
+                        html += '<li class="">' + v.tag_id2_name + '</li><li class="active1">' + v.tag_id3_name + '</li></ul>'
+                        html += '<div class="reportdeta-box-img"><img src="' + v.content_img + '"/></div></li>'
+                    })
+                    if (html) {
+                        errData.innerHTML = html
+                        errorLen.innerHTML = '<span class="reportdeta-head-span">2018.12.12</span><span class="reportdeta-head-span1" id="errorLen">'+data.length+'题</span>'
+                    } else {
+                      errData.innerHTML = '<div class="none_err">很棒，这个科目没有错题</div>'
+                      errorLen.innerHTML = '<span class="reportdeta-head-span">2018.12.12</span><span class="reportdeta-head-span1" id="errorLen">'+0+'题</span>'
+                    }
+                }
+            })
+        }
+    }
+</script>
+
+</html>

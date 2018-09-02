@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>错题列表</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="forgetpass">
+            <header class="header clear">
+                <i class="iconfont fl header-i1 icon-houtui" tapmode onclick="closeWins('errorques')"></i>错题列表<i class="iconfont fr header-i2 icon-chakantiezigengduo"></i>
+            </header>
+        </div>
+        <div class="reportdeta-content">
+            <p class="reportdeta-head"><span class="reportdeta-head-span">2018.07.03</span><span class="reportdeta-head-span1">2题</span></p>
+            <ul id="errcontent">
+              <li class="reportdeta-head-box">
+                  <ul class="reportdeta-box" id="errorques1">
+                      <li class="active">语文-字词</li>
+                      <li class="">生疏</li>
+                      <li class="">默认错题集</li>
+                  </ul>
+                  <div class="reportdeta-box-img">
+                      <img src="../image/img.png" />
+                  </div>
+              </li>
+            </ul>
+            <div class="error-base-but clear">
+                <button class="fr">打印复习</button>
+            </div>
+        </div>
+    </div>
+    <!--弹窗-->
+    <div style="display:none">
+      <div class="popup-lay-error">
+        <div class="reeor-popup">
+          <div class="error-box-popup">
+            <p class="error-popup-p">导入时间</p>
+            <div class="error-popupbox-span">
+              <span class="active">全部</span>
+              <span class="">一周内</span>
+              <span class="">一周内</span>
+            </div>
+          </div>
+          <div class="error-box-popup">
+            <p class="error-popup-p">打印次数</p>
+            <div class="error-popupbox-span">
+              <span class="active">全部</span>
+              <span class="">0次</span>
+              <span class="">1次</span>
+              <span class="">2次</span>
+              <span class="">3次及以上</span>
+            </div>
+          </div>
+          <div class="error-box-popup">
+            <p class="error-popup-p">做错次数</p>
+            <div class="error-popupbox-span">
+              <span class="active">全部</span>
+              <span class="">1次</span>
+              <span class="">2次</span>
+              <span class="">3次及以上</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/resize.js"></script>
+<script type="text/javascript" src="../script/router.js"></script>
+<script>
+  tokenAjax({},'/getListByKemu',function(data){
+    var
+  })
+apiready = function () {
+
+}
+</script>
+</html>

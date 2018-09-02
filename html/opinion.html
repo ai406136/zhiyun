@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>意见反馈</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="popup-lay">
+            <div class="opinion-content">
+                <p class="opinion-p clear">意见反馈<i class="iconfont icon-guanbi" tapmode onclick="closeWins('opinion')"></i></p>
+                <textarea class="text-popup" placeholder="请输入您的反馈" id="text"></textarea>
+                <button class="opinion-but" tapmode id="submit">提交</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/resize.js"></script>
+<script type="text/javascript" src="../script/router.js"></script>
+<script type="text/javascript" src="../script/http.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+        var text = document.querySelector('#text')
+        var submit = document.querySelector('#submit')
+        var phone = localStorage.getItem('phone')
+        submit.addEventListener('click', function() {
+          var val = text.value
+          if (!val) {
+            api.alert({msg: '请输入您想反馈的内容'})
+            return
+          }
+            tokenAjax({}, '/index/getCountList', function(data) {
+              var params = {
+                content: val,
+                phone: phone
+              }
+              api.alert({
+                  title: '',
+                  msg: '反馈成功',
+              }, function(ret, err){
+                  if( ret ){
+                       closeWins('opinion')
+                  }else{
+                       console.log(1)
+                  }
+              });
+
+            })
+        })
+
+    }
+</script>
+
+</html>

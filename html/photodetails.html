@@ -1,0 +1,271 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>错题列表</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        body {
+            background-color: #fafafa;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='min'>
+        <div class="forgetpass">
+            <header class="header clear">
+                <i class="iconfont fl header-i1 icon-houtui" tapmode onclick="closeWins('photodetails')"></i>错题列表
+            </header>
+        </div>
+        <div class="reportdeta-content" style="margin-bottom:2rem">
+            <p class="photo-nav-box photo-nav"><span class="active" id="nav">错题内容</span><span class="" id="nav2">错题标签</span></p>
+            <div id="photo_content">
+                <div class="reportdeta-head-box">
+                    <div class="reportdeta-box1">
+                        <span>题干</span>
+                        <span class="active">(点击图片可编辑)</span>
+                    </div>
+                    <div class="reportdeta-box-img">
+                        <img id="img2" src="../image/img.png" />
+                    </div>
+                </div>
+                <div class="reportdeta-head-box">
+                    <div class="reportdeta-box1">
+                        <span>答案解析</span>
+                        <span class="active">(点击图片可编辑)</span>
+                    </div>
+                    <div class="reportdeta-box-img">
+                        <img id='img1' src="../image/img.png" />
+                    </div>
+                </div>
+                <div class="forgetpass-base" id='btn' tapmode style="background-color:transparent">
+                    <div class="fl iconfont icon-jia photoicont" tapmode id="addImgBtn"></div>
+                    <div class="fotgetpass-but1" id="nav1">下一步</div>
+                </div>
+            </div>
+            <div id="photo_content2" style="display:none">
+                <div class="photo-popup">
+                    <div class="error-box-popup">
+                        <p class="error-popup-p">选择科目</p>
+                        <ul class="error-popupbox-span" id="subnav1">
+                        </ul>
+                    </div>
+                    <div class="error-box-popup">
+                        <p class="error-popup-p">掌握程度</p>
+                        <ul class="error-popupbox-span" id="subnav2">
+                        </ul>
+                    </div>
+                    <div class="error-box-popup">
+                        <p class="error-popup-p">题目类型</p>
+                        <ul class="error-popupbox-span" id="subnav3">
+                            <li class="active">选择题</li>
+                            <li class="">填空题</li>
+                            <li class="">主观题</li>
+                        </ul>
+                    </div>
+                    <div class="forgetpass-base" tapmode style="background-color:transparent">
+                        <div class="fotgetpass-but1" id='btncontent'>保存</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="../script/api.js"></script>
+        <script type="text/javascript" src="../script/resize.js"></script>
+</body>
+
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/resize.js"></script>
+<script type="text/javascript" src="../script/router.js"></script>
+<script type="text/javascript" src="../script/http.js"></script>
+<script>
+    var subject1Id = ''
+    var subject2Id = ''
+    var subject3Id = ''
+    var FNImageClip = ''
+    var imgBass = ''
+    var secImg = ''
+    var img1 = document.querySelector('#img1')
+
+    function removeActiveClass(node) {
+        node.className = '';
+    }
+
+    subnav1.onclick = function(e) {
+        if (e.target.nodeName === 'LI') {
+            Array.prototype.forEach.call(document.querySelectorAll('ul[id=subnav1] > li'), removeActiveClass);
+            var target = e.target
+            subject1Id = e.target.id
+            target.className = 'active';
+            return subject1Id
+        }
+
+    }
+    console.log(subject1Id);
+    subnav2.onclick = function(e) {
+        if (e.target.nodeName === 'LI') {
+            Array.prototype.forEach.call(document.querySelectorAll('ul[id=subnav2] > li'), removeActiveClass);
+            var target = e.target
+            subject2Id = e.target.id
+            console.log(subject2Id);
+            target.className = 'active';
+        }
+    }
+    subnav3.onclick = function(e) {
+        if (e.target.nodeName === 'LI') {
+            Array.prototype.forEach.call(document.querySelectorAll('ul[id=subnav3] > li'), removeActiveClass);
+            var target = e.target
+            subject3Id = e.target.id
+            console.log(subject3Id);
+            target.className = 'active';
+            return subject3Id
+        }
+    }
+    addImgBtn.onclick = function(e) {
+        api.getPicture({
+            sourceType: 'camera',
+            encodingType: 'png',
+            mediaValue: 'pic',
+            destinationType: 'base64',
+            allowEdit: true,
+            quality: 20,
+            saveToPhotoAlbum: false
+        }, function(ret, err) {
+            if (ret) {
+                var params = {
+                    imgData: ret.base64Data
+                }
+                tokenAjax(params,
+                    '/user/uploadImgBase64',
+                    function(data) {
+                        var img1 = document.querySelector('#img1')
+                        img1.setAttribute('src', data)
+                        secImg = data
+                    }
+                )
+            }
+        })
+    }
+
+
+
+
+    function postImg(url, name) {
+        var params = {
+            imgData: url
+        }
+        tokenAjax(params, '/user/uploadImgBase64', function(data) {
+            var img2 = document.querySelector(name)
+            console.log(JSON.stringify(data))
+            img2.setAttribute('src', data)
+            imgBass = data
+        })
+    }
+    apiready = function() {
+        var routerParams = api.pageParam
+        var subnav1 = document.querySelector('#subnav1')
+        var subnav2 = document.querySelector('#subnav2')
+        var subnav3 = document.querySelector('#subnav3')
+        nav.addEventListener('click', function() {
+            var photo_content = document.querySelector('#photo_content')
+            var photo_content2 = document.querySelector('#photo_content2')
+            var nav2 = document.querySelector('#nav2')
+            var nav = document.querySelector('#nav')
+            photo_content.style.display = 'block';
+            photo_content2.style.display = 'none';
+            nav2.setAttribute("class", " ");
+            nav.setAttribute("class", "active");
+        })
+        nav2.addEventListener('click', function() {
+            var photo_content = document.querySelector('#photo_content')
+            var photo_content2 = document.querySelector('#photo_content2')
+            var nav2 = document.querySelector('#nav2')
+            var nav = document.querySelector('#nav')
+            photo_content.style.display = 'none';
+            photo_content2.style.display = 'block';
+            nav2.setAttribute("class", "active");
+            nav.setAttribute("class", " ");
+        })
+        nav1.addEventListener('click', function() {
+            var photo_content = document.querySelector('#photo_content')
+            var photo_content2 = document.querySelector('#photo_content2')
+            var nav2 = document.querySelector('#nav2')
+            var nav = document.querySelector('#nav')
+            photo_content.style.display = 'none';
+            nav2.setAttribute("class", "active");
+            nav.setAttribute("class", " ");
+            photo_content2.style.display = 'block';
+        })
+
+        btncontent.addEventListener('click', function() {
+            if (!subject1Id) {
+                api.alert({msg: '请选择科目类型'})
+                return
+            }
+            if (!subject2Id) {
+                api.alert({msg: '请选择难易程度'})
+                return
+            }
+            if (!subject3Id) {
+                api.alert({msg: '请选择题目类型'})
+                return
+            }
+            var params = {
+                tag_id1: subject1Id,
+                tag_id2: subject2Id,
+                tag_id3: subject3Id,
+                content_img: imgBass,
+                sec_img: secImg
+            }
+            tokenAjax(params, '/user/setQues', function(data) {
+              openWins('reportdeta', null, {
+                  id: subject1Id
+              })
+            })
+        })
+
+        tokenAjax({
+                imgData: routerParams.params.base64Data
+            },
+            '/user/uploadImgBase64',
+            function(data) {
+                var img2 = document.querySelector('#img2')
+                img2.setAttribute('src', data)
+                imgBass = data
+            }
+        )
+
+        tokenAjax({}, '/index/getTags', function(data) {
+            var subject = data['1'];
+            var subject2 = data['2'];
+            var subject3 = data['3'];
+            var len = subject.length;
+            var len1 = subject2.length;
+            var len2 = subject3.length;
+            var htmls = ''
+            var htmls1 = ''
+            var htmls2 = ''
+            if (len && typeof subject === 'object') {
+                for (var i = 0; i < len; i++) {
+                    htmls += '<li class="" id="' + subject[i].id + '">' + subject[i].tag_name + '</li>';
+                }
+                for (var i = 0; i < len1; i++) {
+                    htmls1 += '<li class="" id="' + subject2[i].id + '">' + subject2[i].tag_name + '</li>';
+                }
+                for (var i = 0; i < len2; i++) {
+                    htmls2 += '<li class="" id="' + subject3[i].id + '">' + subject3[i].tag_name + '</li>';
+                }
+            }
+            subnav1.innerHTML = htmls;
+            subnav2.innerHTML = htmls1;
+            subnav3.innerHTML = htmls2
+        })
+
+    }
+</script>
+
+</html>

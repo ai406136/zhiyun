@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>我的使用报告</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        body {
+            background-color: #fafafa;
+        }
+    </style>
+</head>
+<body>
+  <div>
+    <div class="report">
+      <header class="header clear">
+      我的使用报告
+      </header>
+      <ul class="user-ul clear">
+          <li tapmode onclick="openWins('errorques', './errorques.html')">
+              <span>错题数量</span>
+              <i class="iconfont fr icon-jiantou"></i>
+          </li>
+          <li>
+              <span>练习次数</span>
+              <i class="iconfont fr icon-jiantou"></i>
+          </li>
+          <li>
+              <span>已掌握错题数量</span>
+              <i class="iconfont fr icon-jiantou"></i>
+          </li>
+          <li>
+              <span>本月新增/减少数</span>
+              <i class="iconfont fr icon-jiantou"></i>
+          </li>
+      </ul>
+    </div>
+  </div>
+  <!--导航-->
+  <div class="nav">
+    <ul class="nav-ul">
+        <li tapmode onclick="openWins('subject', './subject.html')">
+            <i class="iconfont icon-jiuzhenqia"></i>
+        </li>
+        <li class="active" tapmode>
+            <i class="iconfont icon-baogao"></i>
+        </li>
+        <li class="photo" tapmode onclick="openCameras('./photodetails.html')">
+            <div class="photo-box">
+                <i class="iconfont icon-camera-b"></i>
+            </div>
+        </li>
+        <li tapmode onclick="openWins('commission', './commission.html')">
+            <i class="iconfont icon-iconset0116"></i>
+        </li>
+        <li tapmode onclick="openWins('index', '../index.html')">
+            <i class="iconfont icon-usercircle"></i>
+        </li>
+    </ul>
+  </div>
+
+</body>
+
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/resize.js"></script>
+<script type="text/javascript" src="../script/router.js"></script>
+<script type="text/javascript">
+apiready = function () {
+}
+</script>
+</html>
